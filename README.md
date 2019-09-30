@@ -1,6 +1,7 @@
 # LibPixel
 
-[![Build Status](https://travis-ci.org/libpixel/libpixel.cr.svg?branch=master)](https://travis-ci.org/libpixel/libpixel.cr)
+[![Built with Crystal](https://img.shields.io/badge/built%20with-crystal-000000.svg?style=flat-square)](https://crystal-lang.org/)
+[![Build status](https://img.shields.io/travis/libpixel/libpixel.cr/master.svg?style=flat-square)](https://travis-ci.org/libpixel/libpixel.cr)
 
 Crystal library to generate and sign LibPixel URLs.
 
