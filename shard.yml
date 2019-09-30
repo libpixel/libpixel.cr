@@ -1,0 +1,9 @@
+name: libpixel.cr
+version: 0.1.0
+
+authors:
+  - Lauri Jutila <git@laurijutila.com>
+
+crystal: 0.31.0
+
+license: MIT
