@@ -108,17 +108,18 @@ describe LibPixel::Client do
     end
 
     # it "sets the path to '/' if the path is omitted" do
-    #   client = LibPixel::Client.new(host: "test.libpx.com")
     #   url = "http://test.libpx.com/?src=url"
-    #   client.url({ src: "url" }).should eq url
+    #   default_client.url({ src: "url" }).to_s.should eq url
     # end
 
-    # it "requires the host to be set" do
-    #   @client.host = nil
-    #   assert_raises do
-    #     @client.url("images/1.jpg")
-    #   end
-    # end
+    it "requires the host to be set" do
+      client = default_client
+      client.host = ""
+
+      expect_raises(Exception) do
+        client.url("images/1.jpg")
+      end
+    end
   end
 end
 

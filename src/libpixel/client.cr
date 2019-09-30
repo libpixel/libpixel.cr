@@ -13,7 +13,7 @@ module LibPixel
     end
 
     def sign(uri : String | URI)
-      if secret.empty?
+      if secret.blank?
         raise "Your LibPixel secret must be defined (e.g. LibPixel.secret = 'SECRET')"
       end
 
@@ -34,9 +34,15 @@ module LibPixel
     end
 
     def url(path : String | Nil, options = Hash(String, (String | Int32)).new)
+      if host.blank?
+        raise "Your LibPixel host name must be defined (e.g. LibPixel.host = 'example.libpx.com')"
+      end
+
       use_https = options.fetch(:https) { https }
+      source = options.fetch(:source) { default_source }
 
       options = options.to_h
+      options = options.reject { |k| k == :source }
       options = options.reject { |k| k == :https }
     
       query = options.map {|k, v| "#{k}=#{URI.encode_www_form(v.to_s)}"}.join("&")
@@ -45,8 +51,14 @@ module LibPixel
         query = nil
       end
 
-      if path.nil? || path !~ /^\//
-        path = "/#{path}"
+      if source.is_a?(String) && !source.blank?
+        source_clean = source.gsub(/^\//, "").gsub(/\/$/, "")
+        path_clean = (path || "").gsub(/^\//, "")
+        path = "/#{source_clean}/#{path_clean}"
+      else
+        if path.nil? || path !~ /^\//
+          path = "/#{path}"
+        end
       end
 
       uri = URI.new(
